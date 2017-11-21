@@ -154,6 +154,22 @@ class AutoCommiter(threading.Thread):
             last_commit += self._sleep_interval
 
 
+class DetrackDocumentFormatter(DefaultDocumentFormatter):
+    """Basic DocumentFormatter that preserves numbers, base64-encodes binary,
+    and stringifies everything else.
+    """
+
+    def transform_element(self, key, value):
+        try:
+            new_value = self.transform_value(value)
+            if key == '_type'
+                yield 'c_type', new_value
+            else
+                yield key, new_value
+        except ValueError as e:
+            LOG.warn("Invalid value for key: %s as %s"
+                     % (key, str(e)))
+
 class DocManager(DocManagerBase):
     """Elasticsearch implementation of the DocManager interface.
 
@@ -182,7 +198,7 @@ class DocManager(DocManagerBase):
             url = [url]
         self.elastic = Elasticsearch(hosts=url, **client_options)
 
-        self._formatter = DefaultDocumentFormatter()
+        self._formatter = DetrackDocumentFormatter()
         self.BulkBuffer = BulkBuffer(self)
 
         # As bulk operation can be done in another thread
