@@ -162,9 +162,9 @@ class DetrackDocumentFormatter(DefaultDocumentFormatter):
     def transform_element(self, key, value):
         try:
             new_value = self.transform_value(value)
-            if key == '_type'
-                yield 'c_type', new_value
-            else
+            if key == "_type":
+                yield "c_type", new_value
+            else:
                 yield key, new_value
         except ValueError as e:
             LOG.warn("Invalid value for key: %s as %s"
